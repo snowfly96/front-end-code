@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 1. view -->
+    <div>
+        <input type="text">
+        <span></span>
+    </div>
+    <script>
+        const input = document.querySelector("input")
+        const text = document.querySelector("span")
+        // vm->view
+        const updateView = () => {
+            text.innerText = data.name
+        }
+        // view->vm
+        input.oninput = (e) => {
+            // vm->model
+            proxyObj.name = e.target.value
+        }
+
+        // 3. model
+        const data = {
+            name: ''
+        }
+
+        // 2. view model
+        const proxyObj = {} // 防止内部data.name修改data出现死循环调用
+        Object.defineProperty(proxyObj, 'name', {
+            get () {
+                return data.name
+            },
+            set (value) {
+                // model->vm
+                if (value === data.name) return
+                data.name = value
+                // vm->view
+                updateView()
+            }
+        })
+
+    </script>
+</body>
+
+</html>
