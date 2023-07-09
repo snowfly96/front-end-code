@@ -7,6 +7,9 @@
 //     typeof：typeof xxx 返回一个字符串 
 //             不能判断null和object，object和array类型
 // 函数的执行和调用直接加括号
+
+// Object.prototype.toString() 判断类型
+// 每个对象的原型上都有constructor方法，可以用来判断类型
 var b1 = {
     b2: [1, "ab", console.log],
     b3: function () {
