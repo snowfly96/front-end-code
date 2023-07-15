@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <!-- 生产环境中不建议使用 -->
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class App extends React.Component {
+            constructor() {
+                super()
+                this.state = { count: 0 }
+                this.addTwo = this.addTwo.bind(this) // 不支持使用？
+            }
+            addOne = () => {
+                this.setState({ count: this.state.count + 1 })
+            }
+
+            addTwo () {
+                console.log(this)
+                this.setState({ count: this.state.count + 2 })
+            }
+
+            render () {
+                return (
+                    <div>
+                        <h3>类组件事件处理</h3>
+                        <p>{this.state.count}</p>
+                        <button onClick={this.addOne}>加//1</button>
+                        <button onClick={this.addTow}>加2</button>
+                        <button onClick={() => this.setState({ count: this.state.count + 3 })}>加3</button>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<App />, document.getElementById("root")) // 将组件elem挂在到root上
+    </script>
+</body>
+
+</html>

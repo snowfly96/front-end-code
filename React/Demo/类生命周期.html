@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <!-- 生产环境中不建议使用 -->
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class App extends React.Component {
+            // 组件初始化会执行
+            // 1. 初始化state和props
+            // 2. props类型检查
+            // 3. 绑定事件处理函数
+            constructor() {
+                super()
+                this.state = { count: 1 }
+                console.log("constructor: 执行构造函数创建App组件实例")
+            }
+            // 组件挂载之前的操作
+            // 1. 让组件props变化时候更新state
+            static getDerivedStateFromProps (props, state) {
+                console.log("getDerivedStateFromProps: 组件挂载前")
+                return null
+            }
+
+            // 组件挂在完成执行
+            // 1. 执行异步操作
+            componentDidMount () {
+                console.log("componentDidMount: 组件挂在完成")
+            }
+            // 组件更新执行
+            componentDidUpdate () {
+                console.log("componentDidUpdate: 组件更新")
+            }
+            // 判断组件是否应该更新
+            // 对比更新前后的props，决定是否需要对组件进行更新
+            shouldComponentUpdate (newProps, newState) {
+                return false // 返回false表示不更新，下面的click函数没有效果
+            }
+            // 组件卸载的时候执行
+            // 1. 清理定时器
+            componentWillUnmount () {
+                console.log("componentWillUnmount: 组件卸载")
+            }
+            // 组件更新执行&重新渲染执行
+            render () {
+                console.log("render: 执行render函数渲染组件")
+                return (
+                    <div>
+                        <h3>类组件生命周期</h3>
+                        <span>life cycle test{this.state.count}</span>
+                        <button onClick={() => this.setState({ count: this.state.count + 1 })}>修改内容</button>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<App />, document.getElementById("root")) // 将组件elem挂在到root上
+
+        // 将挂在root上的组件卸载
+        // ReactDOM.unmountComponentAtNode(document.getElementById("root")) 
+    </script>
+</body>
+
+</html>

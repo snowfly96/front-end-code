@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.staticfile.org/react/16.8.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.8.0/umd/react-dom.development.js"></script>
+    <!-- 生产环境中不建议使用 -->
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState, useEffect, useMemo, useCallback } = React
+        console.log(React)
+        const App = () => {
+            console.log("同步代码按照顺序执行")
+            console.log("模拟constructor初始化状态")
+            const [count, setCount] = useState(1) // 模拟constructor初始化状态
+
+            // 模拟shouldComponentUpdate
+            // 区别于useEffect，useMome 用于无副作用的计算任务
+            const memoDoubleCount = useMemo(() => 2 * count + 1, [count]) // count变化就重新计算，否则利用缓存
+            const doubleCount = 2 * count + 1
+
+            // 模拟componentDidMount
+            useEffect(() => {
+                setTimeout(() => {
+                    console.log("模拟componentDidMount: 加载异步任务")
+                }, 1000)
+            }, [])
+
+
+            // handleClick = () => setCount(count + 1)
+            // 与useMemo区别在于useMemo缓存计算结果，useCallback缓存回调函数
+            const handleClickCallback = useCallback(() => setCount(count + 1), [count])
+
+            return (
+                <div>
+                    <p>函数组件</p>
+                    <p>{count}</p>
+                    <p>{doubleCount}</p>
+                    <p>{memoDoubleCount}</p>
+                    <button onClick={handleClickCallback}>修改状态</button>
+                </div>
+            )
+        }
+        ReactDOM.render(<App />, document.getElementById("root")) // 将组件elem挂在到root上
+    </script>
+</body>
+
+</html>

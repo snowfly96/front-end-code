@@ -22,7 +22,7 @@ class Log {
         if (!Log.instance) {
             this.name = 'logger'
             Log.instance = this
-        }
+        } cha
         return Log.instance
     }
 }

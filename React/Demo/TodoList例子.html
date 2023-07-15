@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <!-- 生产环境中不建议使用 -->
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class App extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    todos: [
+                        { id: 1, text: "吃饭" },
+                        { id: 2, text: "睡觉" },
+                        { id: 3, text: "打豆豆" },
+                    ]
+                }
+                this.inputRef = React.createRef("input")
+            }
+            handleClick = (e) => {
+                const currentVal = this.inputRef.current.value
+                if (currentVal) {
+                    const { todos } = this.state
+                    const newTodos = todos.concat({ id: todos.length + 1, text: currentVal })
+                    this.setState({
+                        todos: newTodos
+                    })
+                }
+            }
+            deleteItem = (id) => {
+                const { todos } = this.state
+                const newTodos = todos.filter(item => {
+                    return item.id !== id
+                })
+                this.setState({
+                    todos: newTodos,
+                })
+            }
+            render () {
+                const { todos } = this.state
+                return (
+                    <div>
+                        <h3>todo-list案例</h3>
+                        <input type="text" ref={this.inputRef} />
+                        <button onClick={this.handleClick}>添加任务</button>
+                        <ul>
+                            {todos.map(item => {
+                                return (
+                                    <li key={item.id} style={{ border: '1px solid black', width: '160px' }}>
+                                        {item.text}
+                                        <span
+                                            onClick={() => this.deleteItem(item.id)}
+                                            style={{ float: 'right', position: 'relative', right: '10px' }}
+                                        >
+                                            X
+                                        </span>
+                                    </li>
+                                )
+                            })}
+                        </ul>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<App />, document.getElementById("root")) // 将组件elem挂在到root上
+    </script>
+</body>
+
+</html>
