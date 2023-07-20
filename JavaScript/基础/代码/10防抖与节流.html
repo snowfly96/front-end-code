@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container1,
+        #container2 {
+            height: 200px;
+            width: 200px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div id="container1">1</div>
+        <div id="container2">2</div>
+    </div>
+    <script>
+        const container1 = document.getElementById('container1')
+        const container2 = document.getElementById('container2')
+
+        function doSomething () {
+            console.log(this)
+            this.innerText = Number(this.innerText) + 1
+        }
+
+        function debounce (callback, wait) {
+            let timeout = null
+            return function () {
+                if (timeout) clearTimeout(timeout) // 定时器清零，clearTimeout
+                timeout = setTimeout(() => {
+                    callback.apply(this, arguments)
+                }, wait)
+            }
+        }
+        function throttle (callback, wait) {
+            let timeout = null
+            return function () {
+                if (!timeout) {
+                    timeout = setTimeout(() => {
+                        timeout = null // 上一个定时器结束，清零
+                        callback.apply(this, arguments)
+                    }, wait)
+                }
+            }
+        }
+
+        container1.onmousemove = debounce(doSomething, 500)
+        container2.onmousemove = throttle(doSomething, 500)
+        /*  防抖debounce：高频事件触发之后指定时间内执行，时间内再次被触发机计时器清零
+            * 鼠标不停的移动
+            * 鼠标滑动滑动窗口
+            * 文字输入
+            * 表单提交
+            * 按钮点击
+            * 窗口缩放
+        */
+        /*  节流：高频事件触发中定时触发，每个指定时间内触发一次
+            * mousemove事件
+            * 搜索联想
+            * DOM的拖拽
+            * 页面滚动与自动加载
+        */
+    </script>
+</body>
+
+</html>
