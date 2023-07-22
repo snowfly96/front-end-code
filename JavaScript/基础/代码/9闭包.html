@@ -156,6 +156,20 @@
     var f7 = fn7()
     f7()
     // 及时释放 f7=null
+
+    // 闭包计数器
+    const closure = () => {
+        // 补全代码
+        count = 0
+        return function () {
+            count += 1
+            return count
+        }
+    }
+    var c = closure()
+    console.log(c())
+    console.log(c())
+    console.log(c())
 </script>
 
 </html>

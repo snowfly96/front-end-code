@@ -56,7 +56,6 @@ const deepCopy = (obj) => {
         return tempObj
     }
     return inner(obj, obj instanceof Array ? [] : {})
-    // return newObj
 }
 
 

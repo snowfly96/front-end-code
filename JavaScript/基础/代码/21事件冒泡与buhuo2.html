@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #first {
+            height: 300px;
+            width: 300px;
+            border: 1px solid black;
+        }
+
+        #second {
+            height: 200px;
+            width: 200px;
+            border: 1px solid black;
+        }
+
+        #third {
+            height: 100px;
+            width: 100px;
+            border: 1px solid black;
+        }
+
+        #four {
+            height: 50px;
+            width: 50px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="first">
+        <div id="second">
+            <div id="third">
+                <div id="four">事件捕获</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const first = document.getElementById("first")
+    first.addEventListener("click", function (e) {
+        alert(this.id)
+    }, true) // true表示事件在捕获阶段发生，false表示事件在冒泡阶段发生
+    const second = document.getElementById("second")
+    second.addEventListener("click", function (e) {
+        alert(this.id)
+    }, true)
+    const third = document.getElementById("third")
+    third.addEventListener("click", function (e) {
+        alert(this.id)
+    }, true)
+    const four = document.getElementById("four")
+    four.addEventListener("click", function (e) {
+        alert(this.id)
+    }, true)
+</script>
+
+</html>

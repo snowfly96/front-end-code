@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            border: 1px salmon solid;
+            height: 100vh;
+            /* width: 300px; */
+            overflow: scroll;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script>
+        const container = document.getElementById('container')
+        // 可以直接写在html里面
+        const imgUrls = [
+            '../assets/image-20230624144703929.png',
+            '../assets/image-20230624145457983.png',
+            '../assets/image-20230624144703929.png',
+            '../assets/image-20230624145457983.png',
+            '../assets/image-20230624144703929.png',
+            '../assets/image-20230624145457983.png',
+            '../assets/image-20230624144703929.png',
+            '../assets/image-20230624145457983.png',
+            '../assets/image-20230624144703929.png',
+            '../assets/image-20230624145457983.png',
+        ]
+        imgUrls.forEach((item, index) => {
+            const img = document.createElement('img')
+            img.dataset.src = item
+            img.style.height = '300px'
+            // img.style.width = '300px'
+            img.src = index < 3 ? img.dataset.src : ''
+            container.appendChild(img)
+        })
+
+        const imgList = document.querySelectorAll('img')
+
+        function loadImage (imgList) {
+            return function () {
+                let count = 0
+                imgList.forEach(img => {
+                    const rec = img.getBoundingClientRect()
+                    if (rec.top < innerHeight + 20) {
+                        img.src = img.dataset.src
+                    }
+                    ++count
+                    if (count === imgList.length) {
+                        container.removeEventListener('scroll', loadImage(imgList))
+                    }
+                })
+            }
+        }
+
+        container.addEventListener('scroll', loadImage(imgList))
+    </script>
+</body>
+
+</html>

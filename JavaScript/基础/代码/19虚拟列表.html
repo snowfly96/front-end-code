@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Virtualized List Example</title>
+    <style>
+        .list-container {
+            height: 400px;
+            overflow: auto;
+        }
+
+        .list-item {
+            height: 54px;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="list-container" id="listContainer"></div>
+
+    <script>
+        const data = [
+            { id: 1, name: 'John Doe', age: 25 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            { id: 2, name: 'Jane Smith', age: 30 },
+            // ... 其他数据
+        ]
+
+        const pageSize = 10 // 每页显示的数据数量
+        const rowHeight = 54 // 每行的高度
+
+        const listContainer = document.getElementById('listContainer')
+        const totalHeight = data.length * rowHeight
+
+        listContainer.style.height = `${pageSize * rowHeight}px`
+        listContainer.style.overflow = 'auto'
+
+        function renderList (startIndex, endIndex) {
+            const listItems = []
+
+            for (let i = startIndex; i < endIndex; i++) {
+                const rowData = data[i]
+                const listItem = document.createElement('div')
+                listItem.classList.add('list-item')
+                listItem.textContent = `ID: ${rowData.id} - Name: ${rowData.name} - Age: ${rowData.age}`
+                listItems.push(listItem)
+            }
+
+            return listItems
+        }
+
+        function updateList () {
+            const scrollTop = listContainer.scrollTop
+            const startIndex = Math.floor(scrollTop / rowHeight)
+            const endIndex = Math.min(startIndex + pageSize, data.length)
+
+            const listItems = renderList(startIndex, endIndex)
+
+            listContainer.innerHTML = ''
+            listContainer.append(...listItems)
+        }
+
+        listContainer.addEventListener('scroll', updateList)
+
+        // 初始化列表
+        updateList();
+    </script>
+</body>
+
+</html>
