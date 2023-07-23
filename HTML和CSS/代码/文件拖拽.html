@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <style type="text/css">
+        section {
+            width: 500px;
+            height: 500px;
+            position: relative;
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        img {
+            width: 150px;
+            height: 100px;
+            display: block;
+            position: absolute;
+            cursor: move;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="dragwall"></section>
+
+    <script type="text/javascript">
+        var dragwall = {
+            init (param) {
+                const el = param.el
+                const src = param.src
+                if (!el || !src) return
+                if (!Array.isArray(src)) return
+                this.createElement(el, src)
+            },
+            createElement (el, src) {
+                for (const item of src) {
+                    /**
+                      * clientX: 鼠标相对于浏览器x轴的位置
+
+                      * clientY: 鼠标相对于浏览器y轴的位置
+
+                      * offsetLeft: 返回当前元素左上角相对于 HTMLElement.offsetParent 节点的左边界偏移的像素值
+
+                      * offsetTop: 返回当前元素左上角相对于 HTMLElement.offsetParent 节点的上边界偏移的像素值
+
+                      * HTMLElement.offsetParent: 返回一个指向最近的（指包含层级上的最近）包含该元素的定位元素或者最近的 table,td,th,body 元素。当元素的 style.display 设置为 "none" 时，offsetParent 返回 null
+
+                      */
+                    const img = document.createElement('img')
+                    // TODO: 给img动态添加src路径，设置随机定位位置
+                    img.src = item
+                    var leftpx = parseInt(Math.random() * (el.clientWidth - 150)) + "px" // 使用img.width出现问题，因为img还没有加载
+                    var rightpx = parseInt(Math.random() * (el.clientHeight - 100)) + "px"
+                    img.style.left = leftpx
+                    img.style.top = rightpx
+
+                    img.onmousedown = function (event) {
+                        disX = event.clientX - img.offsetLeft
+                        disY = event.clientY - img.offsetTop
+                        document.onmousemove = function (event) {
+                            // TODO: 完善图片拖动的代码逻辑
+                            dtX = event.clientX - disX
+                            dtY = event.clientY - disY
+                            img.style.left = dtX + "px"
+                            img.style.top = dtY + "px"
+                        }
+                        document.onmouseup = function (event) {
+                            document.onmousemove = null
+                            document.onmouseup = null
+                        }
+                        return false
+                    }
+                    el.appendChild(img)
+                }
+            }
+        }
+        dragwall.init({
+            // TODO: 请获取id=dragwall的节点
+            el: document.getElementById("dragwall"),
+            src: [
+                'https://uploadfiles.nowcoder.com/images/20211201/920662346_1638346653702/132A122A64D68E816977F049277D1A35',
+                'https://uploadfiles.nowcoder.com/images/20211201/920662346_1638346825557/31EBC4370166F179D3BFDC3E4FCEB5B0',
+                'https://uploadfiles.nowcoder.com/images/20211201/920662346_1638346825557/FE88E01440218FA643954E80A16BEDBB',
+                'https://uploadfiles.nowcoder.com/images/20211201/920662346_1638346825568/7FDC1A630C238AF0815181F9FAA190F5',
+                'https://uploadfiles.nowcoder.com/images/20211201/920662346_1638346825568/980806D97986C9DEBBBF750E990548FF',
+            ]
+        })
+    </script>
+</body>
+
+</html>

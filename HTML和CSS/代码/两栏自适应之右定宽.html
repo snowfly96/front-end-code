@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            flex-wrap: nowrap;
+        }
+
+        #left-div {
+            /* flow-grow默认为0，有剩余空间也不填充 */
+            flex-grow: 1;
+            height: 100vh;
+            background-color: aquamarine;
+        }
+
+        #right-div {
+            /* flex-basis 定义初始在主轴上的尺寸 */
+            flex-basis: 200px;
+            height: 100vh;
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="left-div"></div>
+    <div id="right-div"></div>
+</body>
+
+</html>

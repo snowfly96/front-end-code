@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* html,即documentElement默认 margin:8px*/
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #left {
+            width: 30%;
+            height: 1000px;
+            background-color: azure;
+            float: left;
+        }
+
+        #right {
+            width: 50px;
+            height: 200px;
+            border: 5px solid red;
+            padding: 6px;
+            margin: 2px;
+            background-color: antiquewhite;
+            /* float: left; */
+            overflow: auto;
+            position: relative;
+            top: 100px;
+            left: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id="left">
+        <div id="outer">
+            <div id="inner"></div>
+        </div>
+    </div> -->
+    <div id="right">
+        fdsf
+        fdfdf
+        fdfdf
+        fdsf
+        fdfdf
+        fdfdf
+        fdsf
+        fdfdf
+        fdfdf
+        fdsf
+        fdfdf
+        fdfdf
+        fdsf
+        fdfdf
+        fdfdf
+        fdsf
+        fdfdf
+        fdfdf
+        fdsf
+        fdfdf
+        fdfdf
+        fdsf
+        fdfdf
+        fdfdf
+        fdsf
+        fdfdf
+        fdfdf
+        fdsf
+        fdfdf
+        fdfdffdsf
+        fdfdf
+        fdfdf
+        fdsf
+        fdfdf
+        fdfdf
+        fdsf
+        fdfdf
+        fdfdf
+        fdsf
+        fdfdf
+        fdfdf
+        fdsf
+        fdfdf
+        fdfdf
+        fdsf
+        fdfdf
+    </div>
+</body>
+<script>
+    /* 关于screen的宽高 */
+    // 电脑屏幕的宽高
+    console.log(screen.width)
+    console.log(screen.height)
+    // 电脑屏幕的可用宽高：除去了电脑任务栏的宽高
+    console.log(screen.availWidth)
+    console.log(screen.availHeight)
+    console.log(screen.height - screen.availHeight)// 任务栏高度，mac的上方刘海任务栏
+    // 浏览器高度
+    console.log(window.outerWidth)
+    console.log(window.outerHeight)
+    // 浏览器除去工具栏的高度
+    console.log(window.innerWidth)
+    console.log(window.innerHeight)
+    // 视口宽高
+    console.log(document.documentElement.clientWidth)
+    console.log(document.documentElement.clientHeight)
+    // document.body.clientHeight计算正常文档流的高度，脱离了文档流的不算body内容
+    // document.documentElement.clientHeight 计算文档的高度，脱离文档流的也会被计算
+
+    // 无限滚动触发加载
+    /*
+    scrollHeight=right.scrollHeight
+    scrollTop=right.scrollTop
+    offsetHeight=right.offsetHeight
+    scrollHeight-scrollTop-offsetHeight<threshold
+    */
+    // 懒加载实现
+    // https://xie.infoq.cn/article/7c59722a96decd1f302bb1aaf
+</script>
+
+</html>

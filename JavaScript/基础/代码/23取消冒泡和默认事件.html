@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="outer">
+        <div id="inner">
+            <button id="button">Click me</button>
+        </div>
+        <a href="https://www.baidu.com/" id="link">跳转(默认事件被取消)</a>
+    </div>
+</body>
+<script>
+    // 事件触发函数
+    function triggerEvent (element, eventName) {
+        // 创建事件对象
+        var event = document.createEvent('HTMLEvents')
+        event.initEvent(eventName, true, false)
+
+        // 触发对象
+        element.dispatchEvent(event)
+
+        // 如果存在父元素，则继续冒泡
+        if (element.parentNode) {
+            triggerEvent(element.parentNode, eventName)
+        }
+    }
+
+    var outer = document.getElementById("outer")
+    var inner = document.getElementById("inner")
+    var button = document.getElementById("button")
+
+    outer.addEventListener("click", function (event) {
+        console.log("outer click")
+    })
+    inner.addEventListener("click", function (event) {
+        console.log("inner click")
+    })
+    button.addEventListener("click", function (event) {
+        if (event.stopPropagation) {
+            event.stopPropagation()
+        } else {
+            event.cancelBubble = true
+        }
+        console.log("button click")
+    })
+
+    // 取消默认事件
+    const link = document.getElementById('link')
+    link.addEventListener('click', function (event) {
+        event.preventDefault()
+        alert("默认事件已被阻止")
+    })
+</script>
+
+</html>

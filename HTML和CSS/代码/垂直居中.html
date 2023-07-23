@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            height: 200px;
+            width: 200px;
+            border: 1px solid black;
+        }
+
+        .inner {
+            height: 50px;
+            width: 50px;
+            border: 1px solid red;
+        }
+
+        #container1 {
+            position: relative;
+        }
+
+        #inner1 {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #container2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #container3 {
+            position: relative;
+        }
+
+        #inner3 {
+            /* margin: auto 用于在水平方向上自动分配左右外边距 */
+            margin: auto;
+            position: absolute;
+            right: 0;
+            left: 0;
+            top: 0;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container1" class="container">
+        <div id="inner1" class="inner">
+            postion+translate
+        </div>
+    </div>
+    <div id="container2" class="container">
+        <div id="inner2" class="inner">
+            flex
+        </div>
+    </div>
+    <div id="container3" class="container">
+        <div id="inner3" class="inner">
+
+        </div>
+    </div>
+</body>
+
+</html>
