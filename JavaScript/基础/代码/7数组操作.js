@@ -46,7 +46,7 @@ console.log('map', testArr2.map(item => 2 * item))
 
 // reduce实现
 Array.prototype.mReduce = function (callback, init) {
-    init = init === undefined ? this[0] : init
+    // init = init === undefined ? this[0] : init
     for (let i = 0; i < this.length; i++) {
         if (init === undefined) {
             init = callback(this[i], this[i + 1], i + 1, this)

@@ -94,6 +94,8 @@ h1 {
 
 **pages目录**
 
+安装`@babel/plugin-transform-react-jsx`，`.babelrc`文件中设置`"runtime": "automatic"`，就不需要每次都显式得手动`import React from 'react'`导入
+
 Home/index.js
 
 ```js
