@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <header>header</header>
+        <div id="content">
+            <div>div</div>
+            <span>span</span>
+            <p>p</p>
+        </div>
+        <footer>footer</footer>
+    </div>
+    <script>
+        // 直接获取所有节点
+        const allTags = document.querySelectorAll("*")
+        const tagsName = Array.from(allTags).map(item => item.tagName.toLocaleLowerCase())
+        console.log(tagsName)
+        // 按照树结构获取
+        const getAllTagsByTree = (root) => {
+            const travrse = (node, tagsObj) => {
+                if (node.nodeType === Node.ELEMENT_NODE) {
+                    tagsObj.tag = node.tagName.toLocaleLowerCase()
+                    tagsObj.childNodes = []
+                    if (!node.childNodes) {
+                        return
+                    }
+                    const childrens = Array.from(node.childNodes)
+                    for (let [index, nd] of childrens.entries()) {
+                        tagsObj.childNodes.push({})
+                        travrse(nd, tagsObj.childNodes[index])
+                    }
+                    return tagsObj
+                }
+            }
+            const res = travrse(root, {})
+            console.log(res)
+        }
+        // getAllTagsByTree(document.documentElement)
+
+        function getNodeTree (node) {
+            const nodeObject = {
+                tagName: node.tagName,
+                children: []
+            }
+            const children = node.childNodes
+            for (const child of children) {
+                if (child.nodeType === Node.ELEMENT_NODE) {
+                    nodeObject.children.push(getNodeTree(child))
+                }
+            }
+            return nodeObject
+        }
+        const rootElement = document.documentElement
+        const domTree = getNodeTree(rootElement)
+        console.log(domTree);
+
+    </script>
+</body>
+
+</html>

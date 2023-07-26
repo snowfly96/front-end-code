@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 用于处理返回数据的回调
+        function handleData (data) {
+            console.log("服务器返回的数据", data)
+        }
+        // 创建script标签，添加src发送请求
+        // script标签不受同源策略影响
+        const script = document.createElement('script')
+        script.src = "http://127.0.0.1:8080?callback=handleData"
+        document.body.appendChild(script)
+    </script>
+</body>
+
+</html>
