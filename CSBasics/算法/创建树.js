@@ -79,3 +79,18 @@ while (que.length) {
     }
     // 多叉树采用for循环遍历
 }
+
+
+function A (name) {
+    this.name = name
+    this.getName = function () {
+        return this.name
+    }
+}
+
+function B (age) {
+    this.age = age
+    this.getAge = function () {
+        return this.age
+    }
+}

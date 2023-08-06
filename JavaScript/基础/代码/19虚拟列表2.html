@@ -1,26 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Virtualized List Example</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <style>
-        .list-container {
-            height: 400px;
-            overflow: auto;
+        #root {
+            height: 397px;
+            width: 400px;
+            overflow: scroll;
+            border: 1px solid black;
         }
 
-        .list-item {
-            height: 54px;
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
+        #container {
+            background-color: bisque;
+            border: blueviolet 1px solid;
+        }
+
+        .item-list {
+            border: 1px solid red;
         }
     </style>
 </head>
 
 <body>
-    <div class="list-container" id="listContainer"></div>
+    <div id="root">
+        <div id="container">
 
+        </div>
+    </div>
     <script>
+        // 1. 初始化数据
         const data = [
             { id: 1, name: 'John Doe', age: 25 },
             { id: 2, name: 'Jane Smith', age: 30 },
@@ -54,47 +65,38 @@
             { id: 30, name: 'Jane Smith', age: 30 },
             // ... 其他数据
         ]
+        // console.log(container.offsetHeight)
+        // console.log(container.clientHeight)
+        // console.log(getComputedStyle(container).height)
+        const container = document.getElementById("container")
+        const root = document.getElementById("root")
+        const itemHeight = 47
+        const pageSize = 9
 
-        const pageSize = 10 // 每页显示的数据数量
-        const rowHeight = 54 // 每行的高度
-
-        const listContainer = document.getElementById('listContainer')
-        const totalHeight = data.length * rowHeight
-
-        listContainer.style.height = `${pageSize * rowHeight}px`
-        listContainer.style.overflow = 'auto'
-
-        function renderList (startIndex, endIndex) {
-            const listItems = []
-
-            for (let i = startIndex; i < endIndex; i++) {
-                const rowData = data[i]
-                const listItem = document.createElement('div')
-                listItem.classList.add('list-item')
-                listItem.textContent = `ID: ${rowData.id} - Name: ${rowData.name} - Age: ${rowData.age}`
-                listItems.push(listItem)
+        function renderList (start, end) {
+            container.innerHTML = ''
+            for (let i = start; i < end; i++) {
+                let { id, name, age } = data[i]
+                const item = document.createElement('div')
+                item.classList.add('item-list')
+                item.style.height = itemHeight + 'px'
+                item.textContent = `${id}-${name}-${age}`
+                container.appendChild(item)
             }
-
-            return listItems
         }
 
         function updateList () {
-            const scrollTop = listContainer.scrollTop
-            const startIndex = Math.floor(scrollTop / rowHeight)
-            const endIndex = Math.min(startIndex + pageSize, data.length)
-
-            const listItems = renderList(startIndex, endIndex)
-
-            listContainer.innerHTML = ''
-            listContainer.append(...listItems)
-            // listContainer.style.paddingTop = startIndex * rowHeight + 'px'
-            // listContainer.style.paddingBottom = (data.length - endIndex) * rowHeight + 'px'
+            // 2. 获取start, end
+            let start = Math.floor(root.scrollTop / itemHeight) // root.scrollTop
+            let end = Math.min(start + pageSize, data.length)
+            renderList(start, end)
+            container.style.paddingTop = start * itemHeight + 'px' // 设置padding
+            container.style.paddingBottom = (data.length - end) * itemHeight + 'px'
         }
 
-        listContainer.addEventListener('scroll', updateList)
+        updateList()
 
-        // 初始化列表
-        updateList();
+        root.addEventListener('scroll', updateList)
     </script>
 </body>
 

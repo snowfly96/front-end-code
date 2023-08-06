@@ -58,3 +58,21 @@ const task3 = async () => {
 }
 
 // task3()
+
+
+new Promise((resolve, reject) => {
+    resolve('first')
+}).then(val => {
+    console.log('1', val)
+    new Promise((resolve, reject) => {
+        console.log('dsds')
+        setTimeout(() => {
+            resolve('ds')
+        }, 100)
+    }).then(value => {
+        console.log('end')
+    })
+    return 2
+}).then(val => {
+    console.log('2', val)
+})

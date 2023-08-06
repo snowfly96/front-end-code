@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            border: 1px solid rebeccapurple;
+            height: 100vh;
+            overflow: scroll;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+
+    <script>
+        const imageUrl = [
+            '../assets/image-20230624144703929.png',
+            '../assets/image-20230624145457983.png',
+            '../assets/image-20230624144703929.png',
+            '../assets/image-20230624145457983.png',
+            '../assets/image-20230624144703929.png',
+            '../assets/image-20230624145457983.png',
+            '../assets/image-20230624144703929.png',
+            '../assets/image-20230624145457983.png',
+            '../assets/image-20230624144703929.png',
+            '../assets/image-20230624145457983.png',
+        ]
+        // 1. 获取容器元素和图片元素
+        const container = document.getElementById("container")
+
+        // 2. 初始化元素
+        imageUrl.forEach((item, index) => {
+            const img = document.createElement('img')
+            img.dataset.src = item
+            img.style.height = '300px'
+            // 初始化默认三张图片
+            img.src = index < 3 ? img.dataset.src : ''
+            container.appendChild(img)
+        })
+        // 4. 事件回调函数
+        const imgList = document.querySelectorAll('img')
+        function loadImage () {
+            let count = 0
+            imgList.forEach(img => {
+                // 获取图片的位置
+                const rec = img.getBoundingClientRect()
+                if (rec.top < window.innerHeight + 20) {
+                    img.src = img.dataset.src
+                    count++
+                }
+                console.log(count)
+                if (count === imgList.length) {
+                    container.removeEventListener('scroll', loadImage(imgList))
+                }
+            })
+        }
+
+        // 3. 设置监听事件
+        container.addEventListener('scroll', loadImage)
+
+    </script>
+</body>
+
+</html>
