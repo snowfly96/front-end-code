@@ -5,7 +5,7 @@ Promise.resolve('gege').then(val => {
 Promise.resolve(() => { // resolve 函数
     return 'hello'
 }).then(val => {
-    console.log(val())
+    console.log(val)
 })
 // Promise.reject使用
 Promise.reject('get').then(val => {

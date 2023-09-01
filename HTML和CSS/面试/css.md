@@ -46,7 +46,7 @@ css本身具有继承性，层叠性，优先级
 #### px与rem？
 
 px 绝对的单位，根据页面像素进行计算；移动端需要rpx
-rem/e m 相对单位，em根据其父节点的font-size进行计算，rem根据根节点的font-size进行计算的
+rem/em 相对单位，em根据其父节点的font-size进行计算，rem根据根节点的font-size进行计算的
 
 #### 垂直居中？
 

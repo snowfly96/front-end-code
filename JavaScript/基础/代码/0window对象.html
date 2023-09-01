@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <div id="container"></div>
+    </div>
+    <script>
+        const container = document.querySelector('#container')
+        // 文档对象 DOM
+        // window.document 对于DOM树的【增删查改】
+        const p = document.createElement('p') // 增
+        container.appendChild(p)
+        p.parentNode.removeChild(p) // 删
+        document.querySelector('#container') // 查
+        p.style.height = '100px' // 改
+        p.setAttribute('id', 'pID')
+        window.getComputedStyle(p)
+
+        // 浏览器对象 BOM
+        // window.location 
+        /** location
+         * host: 主机
+         * port：端口
+         * protocol：协议
+         * origin：协议+主机+端口
+         * href：url链接
+         * **/
+        console.log(window.location)
+        // window.history
+        /** history
+         * go 往前n
+         * back 向前
+         * forward 向后
+         * pushState
+         * replaceState
+         * **/
+
+        // window.navigator 用户浏览器的相关信息，便于了解用户的环境和设备
+        /** navigator
+         * userAgent 用户代理
+         * platform 用户的平台
+         * language 平台语言
+         * EnableCookie 是否启用cookie
+         * **/
+
+        // localStorage/sessionStorage 缓存 {key: value}
+        
+        // window.innerWidth/window.outerWidth 浏览器窗口内部高度/浏览器窗口内部高度（包括边框和工具栏）
+
+        // alert/comfirm/prompt 警告/确认/输入
+
+        // setTimeout/setInterval 设置定时器
+
+        // window.open/close 窗口打开和关闭
+
+
+    </script>
+</body>
+
+</html>

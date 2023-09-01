@@ -78,7 +78,7 @@
             for (let i = start; i < end; i++) {
                 let { id, name, age } = data[i]
                 const item = document.createElement('div')
-                item.classList.add('item-list')
+                item.classList.add('item-list') // 重要
                 item.style.height = itemHeight + 'px'
                 item.textContent = `${id}-${name}-${age}`
                 container.appendChild(item)
@@ -90,6 +90,7 @@
             let start = Math.floor(root.scrollTop / itemHeight) // root.scrollTop
             let end = Math.min(start + pageSize, data.length)
             renderList(start, end)
+            // 重要步骤
             container.style.paddingTop = start * itemHeight + 'px' // 设置padding
             container.style.paddingBottom = (data.length - end) * itemHeight + 'px'
         }
