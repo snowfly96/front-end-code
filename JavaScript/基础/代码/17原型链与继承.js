@@ -150,7 +150,7 @@ console.log(Person.prototype.constructor === Person);
     }
     class Dog extends Animal {
         constructor(name, age) {
-            super(name)
+            super(name) // 等价与Animal.call(this, name)
             this.age = age
         }
     }

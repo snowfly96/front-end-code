@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Canvas Click Event</title>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="400" height="400" style="border:1px solid black;"></canvas>
+
+    <script>
+        const canvas = document.getElementById('myCanvas')
+        const ctx = canvas.getContext('2d')
+
+        // 绘制一个矩形
+        ctx.fillStyle = 'blue'
+        ctx.fillRect(100, 100, 100, 100)
+
+        canvas.addEventListener('click', function (event) {
+            alert('您点击了canvas！')
+            // 获取鼠标点击位置的坐标
+            const x = event.clientX - canvas.getBoundingClientRect().left
+            const y = event.clientY - canvas.getBoundingClientRect().top
+
+            // 检测点击事件是否发生在矩形内部
+            if (x >= 100 && x <= 200 && y >= 100 && y <= 200) {
+                alert('您点击了矩形！')
+            }
+        });
+    </script>
+</body>
+
+</html>
