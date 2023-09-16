@@ -7,7 +7,7 @@
 
 #### 弹性盒子模型？
 
-弹性盒子模型可以使得子元素在任意方向上排列，可以增大尺寸填满未占用空间，可以缩小盒子避免父元素溢出
+弹性盒子模型可以使得子元素在任意方向上排列，可以==增大尺寸==填满未占用空间，可以==缩小盒==子避免父元素溢出
 
 #### css 继承？
 
@@ -30,7 +30,7 @@
 #### css 优先级？
 
 css本身具有继承性，层叠性，优先级
-!important、行内样式、id、类/伪类/属性
+==!important、行内样式、id、类/伪类/属性==
 
 #### 伪类/伪元素？
 
@@ -65,7 +65,16 @@ sass/less预处理器
 
 [B站链接](https://www.bilibili.com/video/BV1ni4y1g7tc/?spm_id_from=333.337.search-card.all.click&vd_source=084728306193898208d80f40ece2975b)
 
+**link和import的区别?**
+
+1. link异步:可以在加载页面的同时加载外部的css文件,import同步:需要等css加载完毕之后在执行后续渲染工作
+2. link可以放在html的任何位置,import放在css中
+3. link的优先级更高
+4. link的兼容性更高
+
 #### css的margin？
+
+css的外边距
 
 #### css的position？
 
@@ -76,3 +85,7 @@ sass/less预处理器
 #### 三十天练习
 
 [github小项目](https://github.com/wesbos/JavaScript30)
+
+#### 获取样式
+
+在js中使用style只能够获取元素的内敛样式,不是内敛样式元素没法获取,使用需要采用getComputedStyle函数进行获取

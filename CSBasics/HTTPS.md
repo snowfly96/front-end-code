@@ -14,11 +14,11 @@ TLS/SSL功能实现依赖于：**非对称加密、对称加密和散列函数**
 
 <img src="/Users/snowfly96/Documents/GitHub/front-end-code/CSBasics/assets/tls.png" alt="image-20230408104645842" style="zoom: 33%;" />
 
-散列函数（MD5、SHA256等）只是对数据进行hash，哈希值依旧是明文，需要进行在发送端加密，接收端解密之后才知道数据是不是完整
+==散列函数（MD5、SHA256等）==只是对数据进行hash，哈希值依旧是明文，需要进行在发送端加密，接收端解密之后才知道数据是不是完整
 
-对称加密（DES、3DES和AES等）采用相同的密钥对信息进行加密和解密
+==对称加密（DES、3DES和AES等）==采用相同的密钥对信息进行加密和解密
 
-非对称加密（采用RSA），公钥+私钥，可以构建数字证书
+==非对称加密（采用RSA）==，公钥+私钥，可以构建数字证书
 
 #### PKI 公钥基础架构（Public Key Infrastructure）
 

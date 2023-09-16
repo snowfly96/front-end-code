@@ -17,12 +17,12 @@
         // window.document 对于DOM树的【增删查改】
         const p = document.createElement('p') // 增
         container.appendChild(p)
-        p.parentNode.removeChild(p) // 删
+        // p.parentNode.removeChild(p) // 删
         document.querySelector('#container') // 查
         p.style.height = '100px' // 改
         p.setAttribute('id', 'pID') // 设置属性
         window.getComputedStyle(p) // 查看样式
-
+        console.log(window.getComputedStyle(p).height);
         // 浏览器对象 BOM
         // window.location 
         /** location
