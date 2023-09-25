@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.staticfile.org/react/16.8.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.8.0/umd/react-dom.development.js"></script>
+    <!-- 生产环境中不建议使用 -->
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        class Stopwatch extends React.Component {
+            constructor(props) {
+                super(props)
+                this.state = {
+                    running: false,
+                    startTime: 0,
+                    elapsedTime: 0,
+                }
+                this.animationFrameId = null
+            }
+
+            startTimer = () => {
+                if (!this.state.running) {
+                    this.setState({
+                        startTime: performance.now() - this.state.elapsedTime,
+                        running: true,
+                    })
+                    this.tick()
+                }
+            };
+
+            stopTimer = () => {
+                if (this.state.running) {
+                    cancelAnimationFrame(this.animationFrameId)
+                    this.setState({ running: false })
+                }
+            };
+
+            resetTimer = () => {
+                this.stopTimer()
+                this.setState({ elapsedTime: 0 })
+            };
+
+            tick = () => {
+                this.animationFrameId = requestAnimationFrame(() => {
+                    if (this.state.running) {
+                        const currentTime = performance.now()
+                        const elapsedTime = currentTime - this.state.startTime
+                        this.setState({ elapsedTime })
+                        this.tick()
+                    }
+                })
+            };
+
+            render () {
+                const { elapsedTime } = this.state
+                return (
+                    <div>
+                        <h1>毫秒表:{Math.round(performance.now())}</h1>
+                        <div>{Math.round(elapsedTime)} 毫秒</div>
+                        <button onClick={this.startTimer}>开始</button>
+                        <button onClick={this.stopTimer}>停止</button>
+                        <button onClick={this.resetTimer}>重置</button>
+                    </div>
+                )
+            }
+        }
+
+
+        const App = () => {
+            return (
+                <div>
+                    <Stopwatch />
+                </div>
+            )
+        }
+        ReactDOM.render(<App />, document.getElementById("root")) // 将组件elem挂在到root上
+    </script>
+</body>
+
+</html>
