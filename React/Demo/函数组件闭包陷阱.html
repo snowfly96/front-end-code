@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.staticfile.org/react/16.8.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.8.0/umd/react-dom.development.js"></script>
+    <!-- 生产环境中不建议使用 -->
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState, useEffect } = React
+        const useCountDown = (props) => {
+            const { func, timer } = props
+            const [count, setCount] = useState(timer)
+            useEffect(() => {
+                const interval = setInterval(() => {
+                    setCount(preCount => { // 不能直接使用count-1, 受到闭包影响导致count的值只在第一次变化
+                        if (preCount === 1) { // useState的钩子函数允许传入一个函数,参数是旧状态值
+                            func()
+                            clearInterval(interval)
+                        }
+                        return preCount - 1 // 输入回调函数也可以解决闭包陷阱
+                    })
+                }, 1000)
+                // const interval = setInterval(() => {
+                //     setCount(count - 1)
+                // }, 1000)
+
+                return () => {
+                    clearInterval(interval)
+                }
+            }, []) // 只执行一次,不关联count,确保interval不会被频繁的创建和销毁; 关联count可以解决闭包陷阱
+            return {
+                count
+            }
+        }
+        const CountDown = ({ func, timer }) => {
+            const { count } = useCountDown({ func, timer })
+            return <div>
+                {`count: ${count}`}
+            </div>
+        }
+        const App = () => {
+            const callback = () => {
+                console.log('hello react')
+            }
+            return (
+                <div>
+                    <CountDown timer={10} func={callback} />
+                </div>
+            )
+        }
+        ReactDOM.render(<App />, document.getElementById("root")) // 将组件elem挂在到root上
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.staticfile.org/react/16.8.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.8.0/umd/react-dom.development.js"></script>
+    <!-- 生产环境中不建议使用 -->
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState } = React
+        const App = () => {
+            const [count, setCount] = useState(0)
+            const handleClick = () => {
+                console.log(count) // 闭包中count,在上次setTimeout没执行完毕的时候还是原来的值
+                setTimeout(() => {
+                    setCount(count => count + 1) // 采用函数形式解决
+                }, 1000)
+            }
+            const handleReset = () => {
+                setCount(0)
+            }
+            return (
+                <div>
+                    <p>Count: {count}</p>
+                    <button onClick={handleClick}>Increment</button>
+                    <button onClick={handleReset}>Reset</button>
+                </div>
+            )
+        }
+        ReactDOM.render(<App />, document.getElementById("root")) // 将组件elem挂在到root上
+    </script>
+</body>
+
+</html>
