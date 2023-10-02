@@ -18,12 +18,14 @@
         const { useState } = React
         const App = () => {
             const [count, setCount] = useState(0)
+            // 3. 采用useRef解决闭包陷阱
             const handleClick = () => {
                 console.log(count) // 闭包中count,在上次setTimeout没执行完毕的时候还是原来的值
                 setTimeout(() => {
-                    setCount(count => count + 1) // 采用函数形式解决
+                    setCount(count => count + 1) // 1. 采用函数形式解决
                 }, 1000)
             }
+            // 2. 如果是useEffect、useMemo可以讲count添加到依赖数组中,作为参数传入,就不会产生闭包陷阱了
             const handleReset = () => {
                 setCount(0)
             }

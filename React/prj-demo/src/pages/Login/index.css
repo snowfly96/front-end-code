@@ -1,0 +1,12 @@
+.form-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form {
+  border: 1px rgb(213, 207, 207) solid;
+  border-radius: 5px;
+  padding: 50px;
+}
