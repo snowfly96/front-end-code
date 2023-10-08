@@ -5,22 +5,25 @@ function FPromise (callback) {
     this.callbacks = []
 
     const resolve = result => {
-        console.log(result)
-        if (this.status === 'pendding') {
+        if (this.status === 'pending') {
             this.status = 'fulfilled'
             this.data = result
-            this.callbacks.forEach(item => {
-                item.onResolved(this.data)
+            setTimeout(() => {
+                this.callbacks.forEach(item => {
+                    item.onResolved(this.data)
+                })
             })
         }
     }
 
     const reject = result => {
-        if (this.status === 'pendding') {
+        if (this.status === 'pending') {
             this.status = 'rejected'
             this.data = result
-            this.callbacks.forEach(item => {
-                item.onRejected(this.data)
+            setTimeout(() => {
+                this.callbacks.forEach(item => {
+                    item.onRejected(this.data)
+                })
             })
         }
     }
@@ -51,24 +54,28 @@ FPromise.prototype.then = function (onResolved, onRejected) {
                 },
                 onRejected: () => {
                     const err = onRejected(this.data)
-                    reject(result)
+                    reject(err)
                 }
             })
         } else if (this.status === 'fulfilled') {
-            onResolved(this.data)
+            setTimeout(() => {
+                onResolved(this.data)
+            })
         } else if (this.status === 'rejected') {
-            onRejected(this.data)
+            setTimeout(() => {
+                onRejected(this.data)
+            })
         }
     })
 }
 
 console.log('start')
-const promise = new FPromise((resolve, reject) => {
+const promise = new Promise((resolve, reject) => {
     console.log('hello,01')
-    // setTimeout(() => {
+    // setTimeout(() => { // pending状态下需要对resolve/reject状态进行保存
     //     resolve('hello, resolve')
     // }, 1000)
-    resolve('hello, resolve')
+    resolve('hello, resolve') // then 回调函数是异步的
     console.log('hello,02')
 }).then((val) => {
     console.log(val)
